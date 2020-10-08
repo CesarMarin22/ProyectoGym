@@ -1,0 +1,340 @@
+CREATE DATABASE proyectoFissicGym;
+USE proyectoFissicGym;
+
+CREATE SCHEMA GENERAL;
+CREATE SCHEMA VENTAS;
+CREATE SCHEMA RUTINAS;
+
+DROP DATABASE proyectoFissicGym;
+
+CREATE TABLE GENERAL.T_SOCIO
+(
+	id_Socio BIGINT IDENTITY(1,1)  NOT NULL,
+	nombre_Socio varchar(25) NOT NULL,
+	direccion_Socio varchar(50) NOT NULL,
+	peso_Socio float NOT NULL,
+	altura_Socio float NOT NULL,
+	ocupacion_Socio varchar(25) NOT NULL,
+	vigencia date NOT NULL,
+	CONSTRAINT PK_SOCIO PRIMARY KEY(id_Socio)
+);
+
+CREATE TABLE VENTAS.T_PRODUCTOS
+(
+	id_Producto BIGINT IDENTITY(1,1) NOT NULL,
+	nombre_Producto varchar(25) NOT NULL,
+	precio_Producto float NOT NULL,
+	cantidad_Producto int NOT NULL,
+	CONSTRAINT PK_PRODUCTOS PRIMARY KEY(id_Producto)
+);
+
+CREATE TABLE VENTAS.T_VENTAS
+(
+	id_Venta BIGINT IDENTITY(1,1) NOT NULL,
+	fecha date NOT NULL,
+	total float NOT NULL,
+	id_Socio BIGINT NOT NULL,
+	CONSTRAINT PK_VENTAS PRIMARY KEY(id_Venta),
+	CONSTRAINT FK_SOCIO FOREIGN KEY(id_Socio) REFERENCES GENERAL.T_SOCIO(id_Socio),
+);
+
+CREATE TABLE VENTAS.T_DETALLE_VENTAS
+(
+	subtotal float NOT NULL,
+	cantidad int NOT NULL,
+	id_Venta BIGINT NOT NULL,
+	CONSTRAINT fk_Venta FOREIGN KEY(id_Venta) REFERENCES VENTAS.T_VENTAS(id_Venta),
+	id_Producto BIGINT NOT NULL,
+	CONSTRAINT fk_Producto FOREIGN KEY(id_Producto) REFERENCES VENTAS.T_PRODUCTOS(id_Producto),
+);
+
+CREATE TABLE RUTINAS.T_PLAN
+(
+	id_Plan BIGINT IDENTITY(1,1) NOT NULL,
+	tipo_Plan varchar(20) NOT NULL,
+	CONSTRAINT PK_PLAN PRIMARY KEY(id_Plan),
+);
+
+CREATE TABLE RUTINAS.T_RUTINAS
+(
+	id_Rutina BIGINT IDENTITY(1,1) NOT NULL,
+	nombre_Rutina varchar(25) NOT NULL,
+	descripcion varchar(50) NOT NULL,
+	id_Plan BIGINT NOT NULL,
+	CONSTRAINT PK_RUTINAS PRIMARY KEY(id_Rutina),
+	CONSTRAINT fk_Plan FOREIGN KEY(id_Plan) REFERENCES RUTINAS.T_PLAN(id_Plan),
+);
+
+CREATE TABLE RUTINAS.T_EJERCICIOS
+(
+	id_Ejercicio BIGINT IDENTITY(1,1) NOT NULL,
+	nombre_Ejercicio varchar(25) NOT NULL,
+	duracion int NOT NULL,
+	id_Rutina BIGINT NOT NULL,
+	CONSTRAINT PK_EJERCICIO PRIMARY KEY(id_Ejercicio),
+	CONSTRAINT fk_Rutina FOREIGN KEY(id_Rutina) REFERENCES RUTINAS.T_RUTINAS(id_Rutina),
+);
+
+CREATE TABLE RUTINAS.T_RUTINAXSOCIO
+(
+	id_Rutina BIGINT NOT NULL,
+	CONSTRAINT fk_RutinaXSocio FOREIGN KEY(id_Rutina) REFERENCES RUTINAS.T_RUTINAS(id_Rutina),
+	id_Socio BIGINT NOT NULL,
+	CONSTRAINT fk_Socio FOREIGN KEY(id_Socio) REFERENCES GENERAL.T_SOCIO(id_Socio),
+);
+
+CREATE TABLE GENERAL.T_DETALLE_PAGOS
+(
+	id_Pago BIGINT IDENTITY(1,1) NOT NULL,
+	monto float NOT NULL,
+	fecha date NOT NULL,
+	tipo_Pago varchar(25) NOT NULL,
+	id_Socio BIGINT NOT NULL,
+	CONSTRAINT PK_DetallePagos PRIMARY KEY(id_Pago),
+	CONSTRAINT fk_Socio FOREIGN KEY(id_Socio) REFERENCES GENERAL.T_SOCIO(id_Socio),
+);
+
+CREATE TABLE GENERAL.T_BITACORA
+(
+	horaEntrada VARCHAR (50) NOT NULL,
+	horaSalida VARCHAR (50) NOT NULL,
+	fecha date NOT NULL,
+	id_Socio BIGINT NOT NULL,
+	CONSTRAINT fk_SocioB FOREIGN KEY(id_Socio) REFERENCES GENERAL.T_SOCIO(id_Socio),
+);
+
+---------------------------------REGLAS------------------------------------
+CREATE RULE regla1 As @variable1 IN ('subir','bajar', 'marcar','competir');
+EXEC sp_bindrule 'regla1', 'RUTINAS.T_PLAN.tipo_Plan'
+
+CREATE RULE regla2 As @variable2 >= 5.00;
+EXEC sp_bindrule 'regla2', 'VENTAS.T_PRODUCTOS.precio_Producto'
+---------------------------------------------------------------------------
+
+INSERT INTO RUTINAS.T_PLAN(tipo_Plan) VALUES ('subir')
+INSERT INTO RUTINAS.T_PLAN(tipo_Plan) VALUES ('bajar')
+INSERT INTO RUTINAS.T_PLAN(tipo_Plan) VALUES ('marcar')
+INSERT INTO RUTINAS.T_PLAN(tipo_Plan) VALUES ('competir')
+
+-------------------------------DISPARADORES---------------------------------
+/*disparador 1*/
+CREATE TRIGGER GENERAL.VALIDA_ENTRADA
+ON GENERAL.T_BITACORA 
+AFTER INSERT
+AS
+BEGIN
+	
+	DECLARE @fecha_actual DATE
+	DECLARE @fecha_subs DATE
+	DECLARE @idSocio BIGINT
+
+	SET @fecha_actual = GETDATE()
+	SELECT @idSocio = id_Socio FROM inserted
+	SELECT @fecha_subs = vigencia FROM GENERAL.T_SOCIO WHERE GENERAL.T_SOCIO.id_Socio = @idSocio
+
+	if @fecha_subs < @fecha_actual
+		PRINT 'Socio caducado'
+END
+
+/*Disparador 2*/
+CREATE TRIGGER GENERAL.TR_ACTUALIZA_VIGENCIA
+ON GENERAL.T_DETALLE_PAGOS
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @fecha_anterior DATE
+	DECLARE @id_Socio BIGINT
+	DECLARE @nueva_fecha DATE
+	DECLARE @tipo VARCHAR(25)
+
+	SELECT @fecha_anterior = fecha, @id_Socio = id_Socio, @tipo = tipo_Pago FROM inserted
+
+	IF @tipo = 'dia'
+		SELECT @nueva_fecha = CONVERT(DATE, DATEADD(d, 1, @fecha_anterior))
+	ELSE
+	BEGIN
+		IF @tipo = 'mes'
+			SELECT @nueva_fecha = CONVERT(DATE, DATEADD(m, 1, @fecha_anterior))
+		ELSE
+		BEGIN
+			IF @tipo = 'semana'
+				SELECT @nueva_fecha = CONVERT(DATE, DATEADD(d, 7, @fecha_anterior))
+		END
+	END
+
+	UPDATE GENERAL.T_SOCIO SET vigencia = @nueva_fecha
+	WHERE id_Socio = @id_Socio
+END
+-----------------------------------------------
+/*CREATE TRIGGER GENERAL.TR_ACTUALIZA_VIGENCIA
+ON GENERAL.T_DETALLE_PAGOS
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @fecha_anterior DATE
+	DECLARE @id_Socio BIGINT
+	DECLARE @nueva_fecha DATE
+	DECLARE @tipo VARCHAR(25)
+
+	SELECT @id_Socio = id_Socio, @tipo = tipo_Pago FROM inserted
+	SELECT @fecha_anterior = vigencia FROM GENERAL.T_SOCIO WHERE id_Socio = @id_Socio
+
+	IF @fecha_anterior < GETDATE()
+		SET @fecha_anterior = GETDATE()
+
+	IF @tipo = 'dia'
+		SELECT @nueva_fecha = CONVERT(DATE, DATEADD(d, 1, @fecha_anterior))
+	ELSE
+	BEGIN
+		IF @tipo = 'mes'
+			SELECT @nueva_fecha = CONVERT(DATE, DATEADD(m, 1, @fecha_anterior))
+		ELSE
+		BEGIN
+			IF @tipo = 'semana'
+				SELECT @nueva_fecha = CONVERT(DATE, DATEADD(d, 7, @fecha_anterior))
+		END
+	END
+
+	UPDATE GENERAL.T_SOCIO SET vigencia = @nueva_fecha
+	WHERE id_Socio = @id_Socio
+END*/
+
+/*disparador 3*/
+CREATE TRIGGER VENTAS.TR_Existencias
+ON VENTAS.T_DETALLE_VENTAS
+FOR INSERT
+AS 
+BEGIN
+	DECLARE @cant int 
+	SELECT @cant = cantidad_Producto FROM VENTAS.T_PRODUCTOS 
+	WHERE id_Producto = (SELECT id_Producto FROM INSERTED)
+	IF @cant < (SELECT cantidad FROM INSERTED)
+	BEGIN
+		PRINT 'No hay suficiente producto'
+		ROLLBACK TRANSACTION
+	END
+END
+
+/*Disparador 4*/
+CREATE TRIGGER TR_RESTARCANTIDAD
+ON VENTAS.T_DETALLE_VENTAS
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @idP BIGINT
+	DECLARE @cant INT
+	SELECT @idP = id_Producto, @cant = cantidad FROM inserted
+
+	UPDATE VENTAS.T_PRODUCTOS SET cantidad_Producto = cantidad_Producto - @cant
+	WHERE id_Producto = @idP
+END
+
+CREATE TRIGGER TR_SUMARCANTIDAD
+ON VENTAS.T_DETALLE_VENTAS
+FOR DELETE
+AS
+BEGIN
+	DECLARE @idP BIGINT
+	DECLARE @cant INT
+	SELECT @idP = id_Producto, @cant = cantidad FROM deleted
+
+	UPDATE VENTAS.T_PRODUCTOS SET cantidad_Producto = cantidad_Producto + @cant
+	WHERE id_Producto = @idP
+END
+
+/*disparador 5*/
+CREATE TRIGGER VENTAS.DISPARADOR_SUBTOTAL
+ON
+VENTAS.T_DETALLE_VENTAS
+FOR INSERT
+AS
+BEGIN
+	DECLARE @precio float
+	DECLARE @idProducto BIGINT
+	DECLARE @cant INT
+	DECLARE @idVe BIGINT
+	DECLARE @sub FLOAT
+
+	SELECT @idProducto = id_Producto, @cant = cantidad, @idVe = id_Venta FROM inserted
+	SELECT @precio = precio_Producto FROM VENTAS.T_PRODUCTOS WHERE VENTAS.T_PRODUCTOS.id_Producto = @idProducto
+	SET @sub = CONVERT(float, @cant * @precio)
+
+	if(@precio != 0)
+		UPDATE VENTAS.T_DETALLE_VENTAS SET subtotal = @sub
+		WHERE id_Venta = @idVe AND id_Producto = @idProducto
+	else
+		rollback transaction --REVIERTE LOS CAMBIOS QUE HAN HECHO
+END
+
+DROP TRIGGER GENERAL.TR_ACTUALIZA_VIGENCIA
+
+/*disparador 6*/
+CREATE TRIGGER TR_RESTARTOTAL
+ON VENTAS.T_DETALLE_VENTAS
+AFTER DELETE
+AS
+BEGIN
+	DECLARE @precio float
+	DECLARE @idProducto BIGINT
+	DECLARE @cant INT
+	DECLARE @idV BIGINT
+	DECLARE @sub FLOAT
+
+	SELECT @idProducto = id_Producto, @cant = cantidad, @idV = id_Venta FROM deleted
+	SELECT @precio = precio_Producto FROM VENTAS.T_PRODUCTOS WHERE VENTAS.T_PRODUCTOS.id_Producto = @idProducto
+	SET @sub = CONVERT(float, @cant * @precio)
+
+	UPDATE VENTAS.T_VENTAS SET total = total - @sub
+	WHERE id_Venta = @idV
+END
+
+CREATE TRIGGER TR_SUMARTOTAL
+ON VENTAS.T_DETALLE_VENTAS
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @precio float
+	DECLARE @idProducto BIGINT
+	DECLARE @cant INT
+	DECLARE @idV BIGINT
+	DECLARE @sub FLOAT
+
+	SELECT @idProducto = id_Producto, @cant = cantidad, @idV = id_Venta FROM inserted
+	SELECT @precio = precio_Producto FROM VENTAS.T_PRODUCTOS WHERE VENTAS.T_PRODUCTOS.id_Producto = @idProducto
+	SET @sub = CONVERT(float, @cant * @precio)
+
+	UPDATE VENTAS.T_VENTAS SET total = total + @sub
+	WHERE id_Venta = @idV
+END
+-----------------------------------------------------------------------------------------------------------
+
+SELECT * FROM GENERAL.T_SOCIO
+SELECT * FROM GENERAL.T_BITACORA
+SELECT * FROM GENERAL.T_DETALLE_PAGOS
+SELECT * FROM VENTAS.T_PRODUCTOS
+SELECT * FROM VENTAS.T_DETALLE_VENTAS
+SELECT * FROM VENTAS.T_VENTAS
+SELECT * FROM RUTINAS.T_PLAN
+SELECT * FROM RUTINAS.T_EJERCICIOS
+SELECT * FROM RUTINAS.T_RUTINAS
+SELECT * FROM RUTINAS.T_RUTINAXSOCIO
+
+SELECT S.vigencia FROM GENERAL.T_SOCIO AS S WHERE S.id_Socio = 2;
+INSERT INTO GENERAL.T_BITACORA (id_Socio, fecha, horaEntrada, horaSalida) VALUES (2, '2017-09-23', '09:24', '09:28')
+
+
+INSERT INTO GENERAL.T_SOCIO VALUES('pedro','calle7',54.5,148,'vendedor','2017/05/05')
+INSERT INTO GENERAL.T_BITACORA (id_Socio) VALUES (2)
+
+INSERT INTO VENTAS.T_PRODUCTOS VALUES ('papas',5.50,1)
+INSERT INTO VENTAS.T_PRODUCTOS VALUES ('leche',8.0,100)
+
+INSERT INTO VENTAS.T_VENTAS VALUES(GETDATE(),0,1)
+INSERT INTO VENTAS.T_DETALLE_VENTAS VALUES(5.50,1,1,2)
+
+INSERT INTO VENTAS.T_DETALLE_VENTAS(subtotal, cantidad, id_Venta, id_Producto) VALUES(0, 1, 5, 3)
+INSERT INTO VENTAS.T_DETALLE_VENTAS(subtotal, cantidad, id_Venta, id_Producto) VALUES(0, 5, 5, 2)
+
+DELETE FROM VENTAS.T_DETALLE_VENTAS WHERE id_Venta = 5 AND id_Producto = 2
+DELETE FROM GENERAL.T_BITACORA
+INSERT INTO GENERAL.T_DETALLE_PAGOS (monto, fecha, tipo_Pago, id_Socio) VALUES (100, GETDATE(), 'semana', 1)
