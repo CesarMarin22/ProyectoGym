@@ -1,0 +1,64 @@
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\bin\Debug\Proyecto.exe.config
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\bin\Debug\Proyecto.exe
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\bin\Debug\Proyecto.pdb
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.FormaPrincipal.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.FormaProducto.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.FormaVenta.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.Properties.Resources.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.csproj.GenerateResource.Cache
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.exe
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.pdb
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.FormaSocio.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.FormaBitacora.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.FormaDetallePago.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.FormaPlan.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.FormaRutina.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto\Proyecto\obj\Debug\Proyecto.csprojResolveAssemblyReference.cache
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\bin\Debug\Proyecto.exe.config
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.exe
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.pdb
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\bin\Debug\Proyecto.exe
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\bin\Debug\Proyecto.pdb
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.csprojResolveAssemblyReference.cache
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.FormaPrincipal.resources
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.FormaBitacora.resources
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.FormaDetallePago.resources
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.FormaPlan.resources
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.FormaProducto.resources
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.FormaRutina.resources
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.FormaSocio.resources
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.FormaVenta.resources
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.Properties.Resources.resources
+C:\Users\novae_000\Desktop\Proyecto\Proyecto\obj\Debug\Proyecto.csproj.GenerateResource.Cache
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\bin\Debug\Proyecto.exe.config
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.exe
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.pdb
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\bin\Debug\Proyecto.exe
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\bin\Debug\Proyecto.pdb
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.csprojResolveAssemblyReference.cache
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaPrincipal.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaBitacora.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaDetallePago.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaPlan.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaProducto.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaRutina.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaSocio.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaVenta.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.Properties.Resources.resources
+C:\Users\kaache\Documents\UNI\S 09\Administracion de bases de datos\SQL Server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.csproj.GenerateResource.Cache
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\bin\Debug\Proyecto.exe.config
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\bin\Debug\Proyecto.exe
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\bin\Debug\Proyecto.pdb
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.csprojResolveAssemblyReference.cache
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaPrincipal.resources
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaBitacora.resources
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaDetallePago.resources
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaPlan.resources
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaProducto.resources
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaRutina.resources
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaSocio.resources
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.FormaVenta.resources
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.Properties.Resources.resources
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.csproj.GenerateResource.Cache
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.exe
+C:\Users\Miguel\Documents\9 semestre\admin bases\proyecto\final sql server\Proyecto[Version Final]\Proyecto\obj\Debug\Proyecto.pdb
